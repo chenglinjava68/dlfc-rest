@@ -2,7 +2,7 @@ package com.housecenter.entity;
 
 import java.util.Date;
 
-public class DlfcUser {
+public class DlfcUser implements DlfcCommonEntity {
     private String id;
 
     private String uno;

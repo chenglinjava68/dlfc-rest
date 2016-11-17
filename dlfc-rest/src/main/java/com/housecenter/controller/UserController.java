@@ -1,6 +1,9 @@
 package com.housecenter.controller;
 
 import com.google.gson.Gson;
+import com.housecenter.common.request.DlfcCommonRequest;
+import com.housecenter.common.response.DlfcCommonResponse;
+import com.housecenter.entity.DlfcCommonEntity;
 import com.housecenter.entity.DlfcUser;
 import com.housecenter.service.DlfcUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +20,9 @@ public class UserController {
 
     @ResponseBody
     @RequestMapping(value = "/insert", method = RequestMethod.POST)
-    public String insert(DlfcUser user) {
+    public String insert(String jsonData) throws Exception {
+
+        DlfcUser user = DlfcCommonRequest.getInstance().build(jsonData, DlfcUser.class);
 
         return user.toString();
     }
@@ -39,50 +44,12 @@ public class UserController {
     @ResponseBody
     @RequestMapping(value = "/select", method = RequestMethod.GET)
     public String selectList(String uid) {
-
-        // 转出去
-//        String json = gson.toJson(userServiceImpl.selectList());
-        // 转进来
-//        ArrayList<DlfcUser> fromJson = gson.fromJson(json, new ArrayList<DlfcUser>().getClass());
-
-//        return gson.toJson(userServiceImpl.selectList());
-        return uid;
+//        DlfcUser dlfcUser = dlfcUserService.selectDlfcUserById(uid);
+        DlfcUser dlfcUser = new DlfcUser();
+        dlfcUser.setUaccount("maosiyu");
+        dlfcUser.setId("11111");
+        dlfcUser.setUcellphone("13138383838");
+        dlfcUser.setUname("yantuhao");
+        return DlfcCommonResponse.getInstance().build(dlfcUser);
     }
-
-//    @RequestMapping
-//    @ResponseBody
-//    public DlfcResult getUserResult(String id) {
-//
-//        DlfcUser dlfcUser = dlfcUserService.selectDlfcUserById(id);
-//        if (dlfcUser != null) {
-//            return DlfcResult.ok(dlfcUser);
-//        } else {
-//            return DlfcResult.build(-1, "无数据");
-//        }
-//
-//    }
-//
-//    @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT)
-//    @ResponseBody
-//    public DlfcResult putUser(@PathVariable("id") String id) {
-//
-//        if (id == null) {
-//            return DlfcResult.build(-2, "未接受到参数");
-//        } else {
-//            return DlfcResult.ok();
-//        }
-//
-//    }
-//
-//    @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
-//    @ResponseBody
-//    public DlfcResult deleteUser(String id) {
-//
-//        if (id == null) {
-//            return DlfcResult.build(-2, "未接受到参数");
-//        } else {
-//            return DlfcResult.ok();
-//        }
-//
-//    }
 }

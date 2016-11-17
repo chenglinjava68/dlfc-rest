@@ -1,4 +1,4 @@
-package com.housecenter.common.result;
+package com.housecenter.common.response;
 
 import java.util.List;
 
