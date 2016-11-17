@@ -12,7 +12,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
  * 拦截器入口
  */
 @Configuration
-@AutoConfigureAfter
+@AutoConfigureAfter({DlfcInterceptor.class})
 public class WebConfigurer extends WebMvcConfigurerAdapter {
 
     /**
