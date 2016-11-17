@@ -1,57 +1,88 @@
 package com.housecenter.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.housecenter.common.result.DlfcResult;
+import com.google.gson.Gson;
 import com.housecenter.entity.DlfcUser;
 import com.housecenter.service.DlfcUserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/User")
+@RequestMapping("/user")
 public class UserController {
 
+    private Gson gson = new Gson();
+
     @Autowired
-    DlfcUserService dlfcUserService;
+    private DlfcUserService dlfcUserService;
 
-    @RequestMapping("/id")
     @ResponseBody
-    public DlfcResult getUserResult(String id) {
+    @RequestMapping(value = "/insert", method = RequestMethod.POST)
+    public String insert(DlfcUser user) {
 
-        DlfcUser dlfcUser = dlfcUserService.selectDlfcUserById(id);
-        if (dlfcUser != null) {
-            return DlfcResult.ok(dlfcUser);
-        } else {
-            return DlfcResult.build(-1, "无数据");
-        }
-
+        return user.toString();
     }
 
-    @RequestMapping(value = "/put", method = RequestMethod.PUT)
     @ResponseBody
-    public DlfcResult putUser(String id) {
+    @RequestMapping(value = "/delete/{uid}", method = RequestMethod.DELETE)
+    public String deleteByPrimaryKey(@PathVariable("uid") String uid) {
 
-        if (id == null) {
-            return DlfcResult.build(-2, "未接受到参数");
-        } else {
-            return DlfcResult.ok();
-        }
-
+        return uid;
     }
 
-    @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
     @ResponseBody
-    public DlfcResult deleteUser(String id) {
+    @RequestMapping(value = "/update/{uid}", method = RequestMethod.PUT)
+    public String updateAllByPrimaryKey(@PathVariable("uid") String id, DlfcUser user) {
 
-        if (id == null) {
-            return DlfcResult.build(-2, "未接受到参数");
-        } else {
-            return DlfcResult.ok();
-        }
-
+        return user.toString();
     }
+
+    @ResponseBody
+    @RequestMapping(value = "/select", method = RequestMethod.GET)
+    public String selectList(String uid) {
+
+        // 转出去
+//        String json = gson.toJson(userServiceImpl.selectList());
+        // 转进来
+//        ArrayList<DlfcUser> fromJson = gson.fromJson(json, new ArrayList<DlfcUser>().getClass());
+
+//        return gson.toJson(userServiceImpl.selectList());
+        return uid;
+    }
+
+//    @RequestMapping
+//    @ResponseBody
+//    public DlfcResult getUserResult(String id) {
+//
+//        DlfcUser dlfcUser = dlfcUserService.selectDlfcUserById(id);
+//        if (dlfcUser != null) {
+//            return DlfcResult.ok(dlfcUser);
+//        } else {
+//            return DlfcResult.build(-1, "无数据");
+//        }
+//
+//    }
+//
+//    @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT)
+//    @ResponseBody
+//    public DlfcResult putUser(@PathVariable("id") String id) {
+//
+//        if (id == null) {
+//            return DlfcResult.build(-2, "未接受到参数");
+//        } else {
+//            return DlfcResult.ok();
+//        }
+//
+//    }
+//
+//    @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
+//    @ResponseBody
+//    public DlfcResult deleteUser(String id) {
+//
+//        if (id == null) {
+//            return DlfcResult.build(-2, "未接受到参数");
+//        } else {
+//            return DlfcResult.ok();
+//        }
+//
+//    }
 }
